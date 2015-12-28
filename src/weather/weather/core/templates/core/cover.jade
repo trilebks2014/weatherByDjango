@@ -1,0 +1,61 @@
+html
+  body
+    | {% extends 'base.html' %}
+    | {% block javascript %}
+    script(type='text/javascript').
+      $(function() {
+      $("#new-account").submit(function () {
+      $("input[name=confirm_password]").val($("input[name=password]").val());
+      });
+      });
+    | {% endblock javascript %}
+    | {% block content %}
+    |   
+    .row.cover
+      .col-md-7
+        h1 What is WeaSMS?
+        |       
+        p.lead
+          strong WeaSMS
+          |  is manage weather around you by SMS. 
+          strong WeaSMS
+          |  will send you weather fully. You just sign in and fill in your number phone
+      |     
+      .col-md-5
+        h2 Sign up for WeaSMS
+        |       
+        form#new-account(action='/signup/', method='post')
+          | {% csrf_token %}
+          .form-group
+            input.form-control.input-lg(type='text', placeholder='Phone Number', name='username')
+          |         
+          .form-group
+            input.form-control.input-lg(type='password', placeholder='Password', name='password')
+            |           
+            input(type='password', name='confirm_password', value='', style='display: none;')
+          |         
+          .form-group
+            input.form-control.input-lg(type='email', placeholder='Email', name='email')
+          |         
+          .form-group
+            button.btn.btn-success.btn-lg.btn-block(type='submit') Create a new account
+    | {% endblock content %}
+    | {% block fullwidthfooter %}
+    |   
+    section.features
+      .container
+        article
+          span.glyphicon.glyphicon-globe
+          |         
+          h2 Function of WeaSMS
+          |         
+          |         
+          p.lead
+            strong WebSMS
+            |  will send SMS
+            |         
+            ul
+              li .......................Day by Day.................................
+              |             
+              li ......................Hour by Hour................................
+    | {% endblock fullwidthfooter %}

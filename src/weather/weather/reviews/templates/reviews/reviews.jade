@@ -1,0 +1,67 @@
+html
+  body
+    | {% extends 'base.html' %}
+    | {% load staticfiles %}
+    | {% block title %}{{ review.title }}{% endblock %}
+    | {% block javascript %}
+    script(src="{% static 'js/review.js' %}?_=1")
+    | {% endblock %}
+    | {% block content %}
+    .row
+      .col-sm-7.col-md-8.col-lg-9
+        form(method='post')
+          | {% csrf_token %}
+          .panel.panel-default
+            .panel-heading
+              h3.panel-title Review details
+            .panel-body
+            .panel-footer
+              button.btn.btn-success(type='submit')
+                span.glyphicon.glyphicon-ok
+                |               Save
+      .col-sm-5.col-md-4.col-lg-3
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title Authors
+          li.list-group-item(author-id='{{ review.author.id }}')
+            a(href='/{{ review.author.username }}/')
+              | {{ review.author.profile.get_screen_name }}
+            span.badge main author
+          |           {% for author in review.co_authors.all %}
+          li.list-group-item(data-user-id='{{ author.id }}')
+            a(href="{% url 'reviews' author.username %}") {{ author.profile.get_screen_name }}
+            |               {% if user.id == review.author.id %}
+            a.js-remove-author.text-danger.pull-right(href='javascript:void(0);')
+              span.glyphicon.glyphicon-remove
+            |               {% elif user.id == author.id %}
+            form(method='post', action="{% url 'reviews:leave' %}", style='display: inline')
+              | {% csrf_token %}
+              input(type='hidden', name='review-id', value='{{ review.id }}')
+              a.js-leave.text-danger.pull-right(href='javascript:void(0);') (leave)
+            |               {% endif %}
+          |           {% endfor %}
+          |         {% if user.id == review.author.id %}
+          .panel-footer
+            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#add-author-modal')
+              span.glyphicon.glyphicon-plus
+              |               Add author
+            |               {% csrf_token %}
+            input(type='hidden', name='review-id', value='{{ review.pk }}')
+            #add-author-modal.modal.fade
+              .modal-dialog
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                      span(aria-hidden='true') ×
+                    h4.modal-title Add author
+                  .modal-body
+                    .alert.alert-info
+                      | You may add someone that doesn't have a Parsifal Account. Just type his email adress and we will send an invitation. :)
+                    .form-group
+                      label.control-label(for='users') Contacts
+                      select#users.contacts(name='users', placeholder='Pick an author or invite someone...')
+                  .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success(type='submit') Send invitation
+          |         {% endif %}
+    | {% endblock content %}

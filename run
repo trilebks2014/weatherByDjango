@@ -1,0 +1,1 @@
+gulp watch & python build/manage.py runserver 8888

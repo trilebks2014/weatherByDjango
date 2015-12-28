@@ -1,0 +1,18 @@
+html
+  body
+    | {% for hidden in form.hidden_fields %}
+    | {{ hidden }}
+    | {% endfor %}
+    | {% for field in form.visible_fields %}
+    .if.endif(class='form-group{% field.errors %} has-error{% %}')
+      label.control-label(for='{{ field.id_for_label }}') {{ field.label }}
+      |     {{ field }}
+      |     {% for error in field.errors %}
+      |       
+      span.help-block {{ error }}
+      |     {% endfor %}
+      |     {% if field.help_text %}
+      |       
+      span.help-block {{ field.help_text }}
+      |     {% endif %}
+    | {% endfor %}

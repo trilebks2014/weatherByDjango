@@ -1,0 +1,41 @@
+html
+  body
+    | {% extends 'base.html' %}
+    | {% block fullwidthheader %}
+    script(type='text/javascript').
+      function toggle_visibility(id) {
+      var e = document.getElementById(id);
+      if(e.style.display == 'block')
+      e.style.display = 'none';
+      else
+      e.style.display = 'block';
+      }
+    .masthead(style='background:url(/static/img/weatherslide.jpg) no-repeat center center fixed;padding-top: 240px; color: #FFF;height:100%')
+      h1 Hello {{ user.username }}
+      p Just 3 click for register today 
+    | {% if error_message %}
+    p
+      strong {{error_message}}
+    | {% endif %}
+    | {% endblock %}
+    |  {% block content %}
+    .row
+      .col-md-8.col-md-offset-2
+        article
+          button.btn.btn-primary.btn-lg.btn-block(type='button', onclick="toggle_visibility('registerDiv');") Register SMS Weather
+          #registerDiv(style='display:none;')
+            br
+            form(action='/{{ user.username }}/thanks/', method='POST')
+              | {% csrf_token %}
+              select(name="selectservice").form-control
+                | {% for service in services %}
+                option(value="{{forloop.counter}}",id ="service{{forloop.counter}}",name='service')  {{ service.services }}    
+                | {% endfor %}
+              input(name="enterCity").form-control(placeholder='Enter your city')
+              br
+              button.btn.btn-success.btn-lg.btn-block(type='submit', value='thanks') Submit Today
+          button.btn.btn-primary.btn-lg.btn-block(type='button', onclick="toggle_visibility('listenDiv');") Listening to music
+          #listenDiv(style='display:none;')
+            br
+            iframe(width='100%', height='400', src='https://www.youtube.com/embed/lTYe9eDqxe8', frameborder='0', allowfullscreen='')
+    | {% endblock content %}

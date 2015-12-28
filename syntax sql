@@ -1,0 +1,7 @@
+SELECT authentication_profile.public_email, authentication_profile.location, authentication_profile.user_id, service_servicesms.services, auth_user.username
+FROM authentication_profile
+INNER JOIN service_servicesms
+ON service_servicesms.id=authentication_profile.selectService_id
+INNER JOIN auth_user
+ON authentication_profile.user_id= auth_user.id
+WHERE service_servicesms.id=1;

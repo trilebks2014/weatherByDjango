@@ -1,0 +1,57 @@
+
+<html>
+  <body>
+    {% extends 'base.html' %}
+    {% block javascript %}
+    <script type="text/javascript">
+      $(function() {
+      $("#new-account").submit(function () {
+      $("input[name=confirm_password]").val($("input[name=password]").val());
+      });
+      });
+    </script>{% endblock javascript %}
+    {% block content %}
+      
+    <div class="row cover">
+      <div class="col-md-7">
+        <h1>What is WeaSMS?</h1>      
+        <p class="lead"><strong>WeaSMS</strong> is manage weather around you by SMS. <strong>WeaSMS</strong> will send you weather fully. You just sign in and fill in your number phone</p>
+      </div>    
+      <div class="col-md-5">
+        <h2>Sign up for WeaSMS</h2>      
+        <form id="new-account" action="/signup/" method="post">{% csrf_token %}
+          <div class="form-group">
+            <input type="text" placeholder="Phone Number" name="username" class="form-control input-lg"/>
+          </div>        
+          <div class="form-group">
+            <input type="password" placeholder="Password" name="password" class="form-control input-lg"/>          
+            <input type="password" name="confirm_password" value="" style="display: none;"/>
+          </div>        
+          <div class="form-group">
+            <input type="email" placeholder="Email" name="email" class="form-control input-lg"/>
+          </div>        
+          <div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Create a new account</button>
+          </div>
+        </form>
+      </div>
+    </div>{% endblock content %}
+    {% block fullwidthfooter %}
+      
+    <section class="features">
+      <div class="container">
+        <article><span class="glyphicon glyphicon-globe"></span>        
+          <h2>Function of WeaSMS</h2>        
+                  
+          <p class="lead"><strong>WebSMS</strong> will send SMS
+                    
+            <ul>
+              <li>.......................Day by Day.................................</li>            
+              <li>......................Hour by Hour................................</li>
+            </ul>
+          </p>
+        </article>
+      </div>
+    </section>{% endblock fullwidthfooter %}
+  </body>
+</html>

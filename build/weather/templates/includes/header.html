@@ -1,0 +1,26 @@
+
+<html>
+  <body>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button data-target="#header-menu" data-toggle="collapse" type="button" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="{% url 'home' %}" class="navbar-brand value-brand">WeaSMS</a>
+          </div>
+          <div id="header-menu" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{% url 'graph' %}">Graph</a></li>
+              <li><a href="{% url 'about' %}">About</a></li>
+            </ul>        {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'reviews' user.username %}"><span data-toggle="tooltip" data-placement="bottom" data-container="body" title="My profile">{{ user.profile.get_screen_name }}</span></a></li>
+              <li><span class="navbar-text username-divider"></span></li>            {% comment %}
+              <li><a href="{% url 'library:index' %}">Library</a></li>            {% endcomment %}
+              <li><a href="{% url 'signout' %}"><span data-toggle="tooltip" data-placement="bottom" data-container="body" title="Sign out"><span class="glyphicon glyphicon-log-out"></span></span></a></li>
+            </ul>        {% else %}<a href="{% url 'signin' %}" title="Sign in" class="btn btn-default navbar-btn navbar-right">Sign in</a><a href="{% url 'signup' %}" title="Sign up" style="margin-right: 5px;" class="btn btn-primary navbar-btn navbar-right">Sign up</a>        {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+  </body>
+</html>

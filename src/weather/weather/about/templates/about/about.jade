@@ -1,0 +1,22 @@
+| {% extends 'base.html' %}
+| {% block title %}About · WeaSMS{% endblock %}
+| {% block fullwidthheader %}
+.masthead
+  h1 About WeaSMS
+  |     
+  p Give your life easily
+| {% endblock %}
+| {% block content %}
+
+.row
+  .col-md-8.col-md-offset-2
+    article
+      h2 What's is WeaSMS?
+      p
+        strong WeaSMS
+        |  is the website to notice phone about weather by SMS
+| {% endblock content %}
+<select id="id_selectService" name="selectService">
+<option value="1">Day By Day</option>
+<option value="2" selected="selected">Two day once</option>
+</select>

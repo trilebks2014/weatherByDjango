@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block fullwidthheader %}
+
+
+
+
+
+
+  <div class="masthead">
+    <h1>Graph WeaSMS</h1>
+    <p>Give your life easily</p>
+  </div>
+{% endblock %}
+{% block content %}
+	<h3>This site will show the graph about amount of rain....</h3>
+	City:<br><input type="text" name="city" id="citylocation" value="da nang"><br><br>
+	<button type="button" class="btn btn-primary" onclick="clickButton();">Show Weather</button>
+	<p class="dataWeather"></p>
+
+<h1>Animated Weather Icons</h1>
+
+<div class="icon sun-shower">
+  <div class="cloud"></div>
+  <div class="sun">
+    <div class="rays"></div>
+  </div>
+  <div class="rain"></div>
+</div>
+
+<div class="icon thunder-storm">
+  <div class="cloud"></div>
+  <div class="lightning">
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+  </div>
+</div>
+
+<div class="icon cloudy">
+  <div class="cloud"></div>
+  <div class="cloud"></div>
+</div>
+
+<div class="icon flurries">
+  <div class="cloud"></div>
+  <div class="snow">
+    <div class="flake"></div>
+    <div class="flake"></div>
+  </div>
+</div>
+
+<div class="icon sunny">
+  <div class="sun">
+    <div class="rays"></div>
+  </div>
+</div>
+
+<div class="icon rainy">
+  <div class="cloud"></div>
+  <div class="rain"></div>
+</div>
+
+
+
+
+<script>
+	queryData = function(location) {
+		var statement="select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='"+location+"')";
+
+		$.queryYQL(statement, function (data) {
+		  console.log('YQL DATA:', data)
+		  output(data);
+		});		
+	}
+
+	clickButton = function(){
+		var city="da nang";
+		city=$("#citylocation").val();
+		queryData(city)
+	
+	}
+
+	function output(data) {
+		var show ;
+		show="City: "+ data.query.results.channel.location.city +", "+data.query.results.channel.location.country +"<br>"+ data.query.results.channel.item.description;
+		$(".dataWeather").html(show);
+	}
+	queryData('da nang')
+
+</script>
+{% endblock content %}
+ 

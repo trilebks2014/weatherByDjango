@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+{% block title %}About · WeaSMS{% endblock %}
+{% block fullwidthheader %}
+<div class="masthead">
+  <h1>About WeaSMS</h1>    
+  <p>Give your life easily</p>
+</div>{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <article>
+      <h2>What's is WeaSMS?</h2>
+      <p><strong>WeaSMS</strong> is the website to notice phone about weather by SMS</p>
+    </article>
+  </div>
+</div>{% endblock content %}
+<select id="id_selectService" name="selectService">
+<option value="1">Day By Day</option>
+<option value="2" selected="selected">Two day once</option>
+</select>
